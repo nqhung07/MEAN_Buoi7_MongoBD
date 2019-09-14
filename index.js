@@ -33,6 +33,7 @@ app.get('/', function (req, res) {
 var Cap1 = require("./models/cap1")
 var Cap2 = require("./models/cap2")
 
+//save cap1
 app.get('/cap1/:name',function(req,res){
     var TheThao = new Cap1({
         name: req.params.name,
@@ -51,6 +52,7 @@ app.get('/cap1/:name',function(req,res){
     })
 })
 
+//save cap2
 app.get('/cap2/:name/:idc1',function(req,res){
     var BongDa = new Cap2({
         name: req.params.name
@@ -81,4 +83,23 @@ app.get('/cap2/:name/:idc1',function(req,res){
             )       
         }
     })
+})
+
+
+//
+app.get('/list/cap1',function(req,res){
+    Cap1.aggregate(
+        //tim cai gi
+        [{
+            $lookup: {
+                from: 'cap2', //collection tren server
+                localField: 'mang', //
+                foreignField: '_id',
+                as: 'danhsach'
+            }
+        }],
+        function(err,mang){
+            res.send(mang)
+        }
+    );
 })
