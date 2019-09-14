@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="layout.css">
+    <script src="jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Home Buoi07</title>
+
+    <script>
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Danh sach sinh vien</h1>
+    <a href="/them">Nhap sinh vien</a>
+    <% ds.forEach(element => { %>
+        <p> <%= element.HoTen %> <span> <%= element.NamSinh %> </span> </p>
+    <% }); %>
+    
+</body>
+
+</html>
+
