@@ -11,6 +11,22 @@
 
     <script>
         $(document).ready(function () {
+            //list cap1 
+            // lay danh sach
+            $.post("http://localhost:3000/list/cap1", function (data2) {
+                if (data2.kq == 1) {
+                    // alert("list cap 1 thanh cong")
+                    console.log(data2.ds);
+                    $("#chonCap1").html('')
+                    data2.ds.forEach(element => {
+                        let chuoi = "<option value='" + element._id + "'>--" + element.name + "--</option>"
+                        $("#chonCap1").append(chuoi)
+                    });
+
+                } else {
+                    // alert('list cap 1 that bai');
+                }
+            })
             //cap1
             $("#btnAddCap1").click(function () {
                 $.post("http://localhost:3000/cap1", { name: $("#txtCap1").val() }, function (data) {
@@ -22,6 +38,7 @@
                             if (data2.kq == 1) {
                                 alert("list cap 1 thanh cong")
                                 console.log(data2.ds);
+                                $("#chonCap1").html('')
                                 data2.ds.forEach(element => {
                                     let chuoi = "<option value='" + element._id + "'>--" + element.name + "--</option>"
                                     $("#chonCap1").append(chuoi)
@@ -56,32 +73,32 @@
             })
 
             //list
-            $("#btnMenu").click(function(){
+            $("#btnMenu").click(function () {
                 $.post(
                     "http://localhost:3000/list/cap1",
-                    function(data){
-                        if (data.kq == 1){
+                    function (data) {
+                        if (data.kq == 1) {
                             alert("list cap 1 thanh cong")
                             console.log(data.ds);
                             console.log(data.ds[0].name);
                             console.log(data.ds[0].danhsach[0].name);
-                            
+
                             data.ds.forEach(item => {
                                 let chuoi = ''
-                                item.danhsach.forEach(element=>{
-                                    chuoi += `<div class="cap2">`+ element.name +`</div>`
+                                item.danhsach.forEach(element => {
+                                    chuoi += `<div class="cap2">` + element.name + `</div>`
                                 })
                                 $(".menu").append(
-                                `<div class="cap1">` + item.name+ `</div>
+                                    `<div class="cap1">` + item.name + `</div>
                                     <div>`
-                                        + chuoi +                                        
+                                    + chuoi +
                                     `</div>
                                 </div> `
-                            )
+                                )
                             })
 
-                            
-                            
+
+
                         } else {
                             alert("list cap 1 that bai")
                         }
@@ -100,7 +117,7 @@
     <input type="button" id="btnAddCap1" value="Add">
     <br>
     <select name="" id="chonCap1">
-        <option value="0">--Cap1--</option>
+        <!-- <option value="0">--Cap1--</option> -->
     </select>
     <input type="text" placeholder="Name Cap 2" id="txtCap2">
     <input type="button" value="Add" id="btnAddCap2">
