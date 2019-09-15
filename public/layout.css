@@ -1,3 +1,8 @@
+*{}
+
+.menu {
+    width: 40%;
+}
 h1 {
     color: red
 }
@@ -6,4 +11,16 @@ img{
     height: 50px;
     width: 50px;
     border: 1px solid red
+}
+
+.cap1{
+    background-color: aqua;
+    padding: 5px;
+    margin: 1px;
+}
+.cap2{
+    background-color: bisque;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 1px;
 }

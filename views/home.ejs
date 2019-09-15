@@ -7,23 +7,110 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="layout.css">
     <script src="jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <title>Home Buoi07</title>
 
     <script>
+        $(document).ready(function () {
+            //cap1
+            $("#btnAddCap1").click(function () {
+                $.post("http://localhost:3000/cap1", { name: $("#txtCap1").val() }, function (data) {
+                    if (data.kq == 1) {
+                        alert("save cap 1 thanh cong")
 
+                        // lay danh sach
+                        $.post("http://localhost:3000/list/cap1", function (data2) {
+                            if (data2.kq == 1) {
+                                alert("list cap 1 thanh cong")
+                                console.log(data2.ds);
+                                data2.ds.forEach(element => {
+                                    let chuoi = "<option value='" + element._id + "'>--" + element.name + "--</option>"
+                                    $("#chonCap1").append(chuoi)
+                                });
+
+                            } else {
+                                alert('list cap 1 that bai');
+                            }
+                        })
+                    } else {
+                        alert('save cap 1 that bai')
+                    }
+                })
+            })
+
+            //cap 2
+            $("#btnAddCap2").click(function () {
+                $.post(
+                    "http://localhost:3000/cap2",
+                    {
+                        name: $("#txtCap2").val(),
+                        idc1: $("#chonCap1").val()
+                    },
+                    function (data) {
+                        if (data.kq == 1) {
+                            alert("save cap 2 thanh cong")
+                        } else {
+                            alert("save cap 2 that bai")
+                        }
+                    }
+                )
+            })
+
+            //list
+            $("#btnMenu").click(function(){
+                $.post(
+                    "http://localhost:3000/list/cap1",
+                    function(data){
+                        if (data.kq == 1){
+                            alert("list cap 1 thanh cong")
+                            console.log(data.ds);
+                            console.log(data.ds[0].name);
+                            console.log(data.ds[0].danhsach[0].name);
+                            
+                            data.ds.forEach(item => {
+                                let chuoi = ''
+                                item.danhsach.forEach(element=>{
+                                    chuoi += `<div class="cap2">`+ element.name +`</div>`
+                                })
+                                $(".menu").append(
+                                `<div class="cap1">` + item.name+ `</div>
+                                    <div>`
+                                        + chuoi +                                        
+                                    `</div>
+                                </div> `
+                            )
+                            })
+
+                            
+                            
+                        } else {
+                            alert("list cap 1 that bai")
+                        }
+                    }
+                )
+            })
+        })
     </script>
 
 </head>
 
 <body>
-    <h1>Danh sach sinh vien</h1>
-    <a href="/them">Nhap sinh vien</a>
-    <% ds.forEach(element => { %>
-        <p> <%= element.HoTen %> <span> <%= element.NamSinh %> </span> </p>
-    <% }); %>
-    
+    <h1>HOME</h1>
+    <!-- Form  Nhap lieu -->
+    <input type="text" id="txtCap1" placeholder="Name Cap 1">
+    <input type="button" id="btnAddCap1" value="Add">
+    <br>
+    <select name="" id="chonCap1">
+        <option value="0">--Cap1--</option>
+    </select>
+    <input type="text" placeholder="Name Cap 2" id="txtCap2">
+    <input type="button" value="Add" id="btnAddCap2">
+    <!-- menu -->
+    <br>
+    <input type="button" value="Show" id="btnMenu">
+    <br>
+    <div class="menu">
+    </div>
+
 </body>
 
 </html>
-
